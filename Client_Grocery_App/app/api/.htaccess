@@ -1,0 +1,11 @@
+Options -MultiViews
+
+RewriteEngine On
+
+RewriteBase /Grocery_App/Client_Grocery_App
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f 
+
+RewriteRule ^/?([A-Za-z]+)/(.*)$ index.php?$1=$2 [QSA,L]
+
