@@ -1,0 +1,25 @@
+<?php 
+
+namespace app\core;
+
+class ConnectionManager {
+    private $connection;
+    private $user;
+    private $password;
+    private $host;
+    private $dbname;
+
+    
+    public function __construct() {
+        $db_config = simplexml_load_file('C:\xampp\htdocs\Assignment1_Web_Services_Natalie_Mulodjanov\config.xml');
+
+        $this->host = $db_config->host;
+        $this->user = $db_config->user;
+        $this->password = $db_config->password;
+        $this->dbname = $db_config->dbname;
+    }
+
+    public function getConnection() {
+        return new \PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->password);
+    }
+}
