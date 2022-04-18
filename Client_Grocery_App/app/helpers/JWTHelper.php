@@ -25,7 +25,6 @@ class JWTHelper
     }
     
     public function decodeJWT($jwt){
-        echo $jwt;
         $key = "example_key";
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         return $decoded;

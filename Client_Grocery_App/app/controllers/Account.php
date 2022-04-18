@@ -7,7 +7,9 @@ class Account extends \app\core\Controller {
         $this->view('Main/index');
     }
 
+	#[\app\filters\ValidateToken]
 	public function home(){
+		//var_dump( $_SESSION['decoded']);
 		$this->view('Main/home');
 	}
 
@@ -45,6 +47,7 @@ class Account extends \app\core\Controller {
 				//generate token
 				$jwt = new \app\helpers\JWTHelper();
                 $_SESSION['JWTtoken'] = $jwt->generateJWT($account);
+				$_SESSION['decoded'] = $jwt->decodeJWT($_SESSION['JWTtoken']);
 				header('location:' . BASE . 'Account/home');
 			} else {
 				$this->view('Main/index', ['error' => 'Wrong username or password!']);
