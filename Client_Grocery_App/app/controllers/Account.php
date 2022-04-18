@@ -4,11 +4,11 @@ namespace app\controllers;
 
 class Account extends \app\core\Controller {
     public function index(){
-        $this->view('index');
+        $this->view('Main/index');
     }
 
 	public function home(){
-		$this->view('home');
+		$this->view('Main/home');
 	}
 
     public function register()
@@ -27,10 +27,10 @@ class Account extends \app\core\Controller {
 				$account->insert();
 				header('Location:' .BASE. 'login');
 			} else {
-				$this->view('index', ['error' => 'Username already exists!']);
+				$this->view('Main/index', ['error' => 'Username already exists!']);
 			}
 		} else
-			$this->view('index');
+			$this->view('Main/index');
 	}
 
 
@@ -47,10 +47,10 @@ class Account extends \app\core\Controller {
                 $_SESSION['JWTtoken'] = $jwt->generateJWT($account);
 				header('location:' . BASE . 'Account/home');
 			} else {
-				$this->view('index', ['error' => 'Wrong username or password!']);
+				$this->view('Main/index', ['error' => 'Wrong username or password!']);
 			}
 		} else
-			$this->view('index');
+			$this->view('Main/index');
 	}
 
 }
