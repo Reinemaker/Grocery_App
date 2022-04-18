@@ -20,12 +20,12 @@ class Api
         if ($this->request == null) {
             echo "error, url improperly formatted";
             return;
+        }  
+        $attribute = new \app\attributes\AuthorizeAttribute();
+        if ($attribute->execute() == false) {
+            throw new \Exception("User unauthorized");
         }
-        $jwt = new JWTHelper();
         
-        if (isset($this->request->header['Authorization'])){
-            $token = $jwt->decodeJWT($this->request->header['Authorization']);
-        }
         $keys = array_keys($this->request->urlParams);
         $file_name = $keys[0] . 'Controller';
         if (file_exists(dirname(__DIR__) . '/controllers/' . $file_name . '.php')) {
@@ -33,7 +33,6 @@ class Api
             $file_exists = class_exists($classname);
             if ($file_exists) {
                 $this->controller = new $classname;
-                echo $this->request->method;
                 //$this->controllerMethod = $this->request->urlParams[$keys[0]];
                 switch ($this->request->method) {
                     case 'GET':
@@ -64,8 +63,14 @@ class Api
     }
 
     private function post(){
-        $response = $this->controller->post($this->request->payload);
-        echo json_encode($response);
+        try {
+            $response = $this->controller->post($this->request->payload);
+            echo json_encode($response);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            http_response_code(400);
+        }
+
     }
 }
 

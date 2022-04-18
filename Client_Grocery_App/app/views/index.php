@@ -2,27 +2,20 @@
 
 <head>
     <title>grocery index</title>
+    <link rel="stylesheet" href="/Grocery_App/Client_Grocery_App/app/css/style.css">
 </head>
 
 <body>
-    <span id="demo"> </span>
-    <script>
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // Typical action to be performed when the document is ready:
-                document.getElementById("demo").innerHTML = xhttp.responseText;
-            }
-        };
-        var url ="http://localhost/Assignment1_Web_Services_Natalie_Mulodjanov/Assignment1_WebServices/app/api/Client/<?php echo isset($data['id']) ? $data['id'] : '' ?>"
-
-        xhttp.open(
-            "GET",
-            url,
-            true
-        );
-        xhttp.send();
-    </script>
+    <span style="color: green"><?php echo isset($data['message']) ? $data['message'] : "" ?></span>
+    <span style="color: red"><?php echo isset($data['error']) ? $data['error'] : "" ?></span>
+    <div class="display-flex" style="justify-content: space-evenly; align-items: center; height: 100%; width: 80%; justify-self: center">
+        <div class="display-flex" style="background: rgba(255,255,255,0.3)">
+            <?php include('login.php'); ?>
+        </div>
+        <div class="display-flex">
+            <?php include('register.php'); ?>
+        </div>
+    </div>
 
 </body>
 

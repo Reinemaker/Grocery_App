@@ -4,7 +4,7 @@
     <host>localhost</host>
     <user>root</user>
     <password></password>
-    <dbname>tekcompany</dbname>
+    <dbname>groceryapp</dbname>
 
 </dbconnection> 
 

@@ -1,15 +1,18 @@
 <?php
 
-namespace app\api;
+namespace app\helpers;
+use \Firebase\JWT\Key;
+use \Firebase\JWT\JWT;
 
 use DateTime;
 
 class JWTHelper
 {
-    public function generateJWT(){
+    public function generateJWT($account){
         $key = "example_key";
         $iat = time();
         $payload = array(
+            "account" => json_encode($account),
             "iss" => "http://localhost/",
             "aud" => "http://localhost/",
             "iat" => 1356999524,
@@ -17,13 +20,14 @@ class JWTHelper
             "exp" => $iat + 60 * 60 * 1,
             "iat" => $iat
         );
-        $jwt = \Firebase\JWT\JWT::encode($payload, $key, 'HS256');
+        $jwt = JWT::encode($payload, $key, 'HS256');
         return $jwt;
     }
-
+    
     public function decodeJWT($jwt){
+        echo $jwt;
         $key = "example_key";
-        $decoded = \Firebase\JWT\JWT::decode($jwt, $key, array('HS256'));
+        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         return $decoded;
     }
 
