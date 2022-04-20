@@ -29,15 +29,15 @@ class Product extends \App\core\Model{
 	}
 
 	public function insert() {
-		$STMT = self::$_connection->prepare("INSERT INTO product(product_id,name,type,quantity)
-        VALUES (:product_id,:name,:type,:quantity)");
-		$STMT->execute(['product_id'=>$this->product_id,'name'=>$this->name,'type'=>$this->type,'quantity'=>$this->quantity]);
+		$STMT = self::$_connection->prepare("INSERT INTO product(product_id,name,dept_id,picture_path)
+        VALUES (:product_id,:name,:dept_id,:picture_path)");
+		$STMT->execute(['product_id'=>$this->product_id,'name'=>$this->name,'dept_id'=>$this->dept_id,'picture_path'=>$this->picture_path]);
 	}
 
 	public function update() {
-		$SQL = 'UPDATE product SET name=:name, type=:type, quantity=:quantity WHERE product_id=:product_id';
+		$SQL = 'UPDATE product SET name=:name, dept_id=:dept_id, picture_path=:picture_path WHERE product_id=:product_id';
         $STMT = self::$_connection->prepare($SQL);
-		$STMT->execute(['product_id'=>$this->product_id,'name'=>$this->name,'type'=>$this->type,'quantity'=>$this->quantity]);
+		$STMT->execute(['product_id'=>$this->product_id,'name'=>$this->name,'dept_id'=>$this->dept_id,'picture_path'=>$this->picture_path]);
 	}
 
 	public function delete() {

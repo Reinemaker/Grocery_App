@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2022 at 02:04 AM
+-- Generation Time: Apr 20, 2022 at 05:48 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -48,6 +48,17 @@ CREATE TABLE `department` (
   `dept_name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`dept_id`, `dept_name`) VALUES
+(1, 'vegetable'),
+(2, 'fruit'),
+(3, 'meat'),
+(4, 'snack'),
+(5, 'drink');
+
 -- --------------------------------------------------------
 
 --
@@ -69,8 +80,20 @@ CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
   `dept_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
-  `path` varchar(256) NOT NULL
+  `picture_path` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`product_id`, `dept_id`, `name`, `picture_path`) VALUES
+(1, 1, 'lettuce', ''),
+(2, 2, 'apple', ''),
+(3, 2, 'pear', ''),
+(4, 3, 'chicken', ''),
+(5, 4, 'potato_chip', ''),
+(6, 5, 'coke', '');
 
 -- --------------------------------------------------------
 
@@ -174,13 +197,13 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `shopping_cart`
