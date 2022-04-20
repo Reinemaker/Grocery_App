@@ -6,6 +6,7 @@ class Product extends \App\core\Model{
     public $dept_id;
     public $name;
     public $picture_path;
+	public $price;
 
 
 	public function __construct() {

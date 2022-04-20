@@ -9,8 +9,10 @@ class Account extends \app\core\Controller {
 
 	#[\app\filters\ValidateToken]
 	public function home(){
-		//var_dump( $_SESSION['decoded']);
-		$this->view('Main/home');
+		$product = new \app\models\Product();
+		$products = $product->getAll();
+
+		$this->view('Main/home', ['products'=>$products]);
 	}
 
     public function register()
