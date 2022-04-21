@@ -4,17 +4,13 @@ namespace app\controllers;
 // This client controller is an exapple of how to use controllers in client. Base yourselves on this.
 class ProductController extends \app\core\Controller {
 
-    public function get($id=null){
-        return $this->view("index", array("id" => $id));
-    }
-
-    function productList() {
+    function index() {
 		$product = new \App\models\Product();
         $productList = $product->getAll();
 		$this->view('Product/productList', ["products" => $productList]);
 	}
 
-    public function insert() {
+    /*public function insert() {
         $product = new \App\models\Product();
         if (isset($_POST["action"])) {
             $product->name = $_POST["name"];
@@ -47,5 +43,5 @@ class ProductController extends \app\core\Controller {
 			header("location:".BASE."/Product/productListEmployee");
 		}else
 			$this->view("Product/edit", $product);
-	}
+	}*/
 }

@@ -10,11 +10,11 @@
 	<tr><th>Name</th><th>Type</th><th>Quantity</th></tr>
 <?php
 
-foreach($data['products'] as $product){
+foreach($data['products'] as $product && $data['departments'] as $deparent){
 
 	echo "<tr>
 			<td>$product->name</td>
-			<td>$product->type</td>
+			<td>$department->type</td>
             <td>$product->quantity</td>
 			<td>
 				<a href='" . BASE . "/Wishlist/insert/$product->product_id'>favorite</a>
