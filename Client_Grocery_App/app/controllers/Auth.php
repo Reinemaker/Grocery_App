@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Exception;
 
-class AuthController extends \app\core\Controller
+class Auth extends \app\core\Controller
 {
 
 

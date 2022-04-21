@@ -1,7 +1,7 @@
 <?php
 namespace App\controllers;
 
-class ShoppingCartController extends \App\core\Controller{
+class ShoppingCart extends \App\core\Controller{
 
     function index() {
 		$cart = new \App\models\Shopping_Cart();

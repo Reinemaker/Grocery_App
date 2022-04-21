@@ -2,7 +2,7 @@
 namespace app\controllers;
 
 // This client controller is an exapple of how to use controllers in client. Base yourselves on this.
-class ProductController extends \app\core\Controller {
+class Product extends \app\core\Controller {
 
     function index() {
 		$product = new \App\models\Product();
