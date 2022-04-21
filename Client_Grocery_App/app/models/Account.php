@@ -39,4 +39,11 @@ class Account extends \app\core\Model
         $STMT->setFetchMode(\PDO::FETCH_CLASS, 'app\models\Account');
         return $STMT->fetch();
     }
+
+    public function update()
+	{
+		$SQL = "UPDATE client SET first_name=:first_name, last_name=:last_name, password_hash = :password_hash, address=:address WHERE account_id = :account_id";
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['client_id' => $this->client_id, 'password_hash' => $this->password_hash]);
+	}
 }

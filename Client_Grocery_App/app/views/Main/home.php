@@ -5,6 +5,7 @@
 
     <body>
         <h1>home page</h1>
+        <p><a href='<?= BASE ?>/account/update'>Change the password</a></p>
         <?php include('C:\xampp\htdocs\Grocery_App\Client_Grocery_App\app\views\Product\search.php'); ?>
         <?php 
             if (isset($data['products'])) {

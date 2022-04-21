@@ -42,7 +42,6 @@ class Account extends \app\core\Controller
 			$this->view('Main/index');
 	}
 
-
 	public function login()
 	{
 		echo "login";
@@ -61,6 +60,25 @@ class Account extends \app\core\Controller
 			}
 		} else
 			$this->view('Main/index');
+	}
+
+	function updateAccount()//doesn't serialize password
+	{
+		$account = new \App\models\Account();
+		if (isset($_POST["action"])) {
+			if ($_POST['password'] == $_POST['password_confirm']) {
+				$account->first_name = $_POST['first_name'];
+				$account->last_name = $_POST['last_name'];
+				$account->address = $_POST['address'];
+				$account->password_hash = $_POST['password'];
+				$account->account_id = $_SESSION["account_id"];
+				$account->update();
+				header('location:' . BASE . 'Main/home');
+			} else {
+				$this->view('Main/update', ['error' => 'Password does not match!']);
+			}
+		}
+		$this->view("Main/home");
 	}
 
 	public function logout()
