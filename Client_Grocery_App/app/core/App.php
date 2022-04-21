@@ -5,7 +5,7 @@ namespace app\core;
 class App{
 
 	private $controller = 'app\\controllers\\Account'; 
-	private $method = 'index';
+	private $method = 'home';
 	private $params = [];
 
 	public function __construct(){

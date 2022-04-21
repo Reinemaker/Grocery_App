@@ -1,25 +1,30 @@
-<?php 
+<?php
 
 namespace app\controllers;
 
-class Account extends \app\core\Controller {
-    public function index(){
-        $this->view('Main/index');
-    }
+class Account extends \app\core\Controller
+{
+	public function index()
+	{
+		$this->view('Main/index');
+	}
 
 	#[\app\filters\ValidateToken]
-	public function home(){
+	public function home()
+	{
 		$product = new \app\models\Product();
 		$products = $product->getAll();
 
-		$this->view('Main/home', ['products'=>$products]);
+		$this->view('Main/home', ['products' => $products]);
 	}
 
-    public function register()
+	public function register()
 	{
-        echo "register";
-		if (isset($_POST['action']) && isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['username']) 
-            && isset($_POST['address']) && $_POST['password'] == $_POST['password_confirm']) {
+		echo "register";
+		if (
+			isset($_POST['action']) && isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['username'])
+			&& isset($_POST['address']) && $_POST['password'] == $_POST['password_confirm']
+		) {
 			$account = new \app\models\Account();
 			if ($account->getAccountByUsername($_POST['username']) == false) {
 				$account->first_name = $_POST['first_name'];
@@ -27,9 +32,9 @@ class Account extends \app\core\Controller {
 				$account->username = $_POST['username'];
 				$account->address = $_POST['address'];
 				$account->password = $_POST['password'];
-                $account->is_employee = false;
+				$account->is_employee = false;
 				$account->insert();
-				header('Location:' .BASE. 'login');
+				header('Location:' . BASE . 'login');
 			} else {
 				$this->view('Main/index', ['error' => 'Username already exists!']);
 			}
@@ -38,8 +43,8 @@ class Account extends \app\core\Controller {
 	}
 
 
-    public function login()
-	{	
+	public function login()
+	{
 		echo "login";
 		if (isset($_POST['action'])) {
 			$account = new \app\models\Account();
@@ -48,7 +53,7 @@ class Account extends \app\core\Controller {
 				$_SESSION['account_id'] = $account->account_id;
 				//generate token
 				$jwt = new \app\helpers\JWTHelper();
-                $_SESSION['JWTtoken'] = $jwt->generateJWT($account);
+				$_SESSION['JWTtoken'] = $jwt->generateJWT($account);
 				$_SESSION['decoded'] = $jwt->decodeJWT($_SESSION['JWTtoken']);
 				header('location:' . BASE . 'Account/home');
 			} else {
@@ -58,4 +63,9 @@ class Account extends \app\core\Controller {
 			$this->view('Main/index');
 	}
 
+	public function logout()
+	{
+		session_destroy();
+	//	header('location:' . BASE . 'User/login');
+	}
 }

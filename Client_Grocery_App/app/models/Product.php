@@ -21,6 +21,14 @@ class Product extends \App\core\Model{
 		return $STMT->fetch();
 	}
 
+	public function search($search_word){
+		$SQL = 'SELECT * FROM product WHERE name LIKE :search_word';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['search_word'=>'%'.$search_word.'%']);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\Product');
+		return $STMT->fetchAll();
+	}
+
 	public function getAll() {
 		$SQL = 'SELECT * FROM product';
 		$STMT = self::$_connection->prepare($SQL);
