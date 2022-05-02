@@ -4,6 +4,8 @@
     <title>Shopping Cart index</title>
 </head>
 
+<a href='<?= BASE ."/Main/secure" ?>'>Return to main menu</a>
+
 <body>
     <span id="demo"> </span>
     <script>
@@ -24,6 +26,17 @@
         xhttp.send();
     </script>
 
-</body>
+<?php 
+            if (isset($data['carts'])) {
+                foreach ($data['carts'] as $cart) {
+                    echo "<h2>$product->name</h2>";
+                    echo "<p>$product->type $</p>";
+                    echo "<p>$product->quantity $</p>";
+                    //picture 
+                    echo "<img src='$product->picture_path' alt='$product->name' width='200' height='200'>";
+                }
+            }
+        ?>
 
+</body>
 </html>

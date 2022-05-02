@@ -2,7 +2,7 @@
 
 namespace App\models;
 
-class Shopping_Cart extends \App\core\Model{
+class ShoppingCart extends \App\core\Model{
 
     public $list_id;
 	public $client_id;

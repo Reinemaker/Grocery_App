@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2022 at 08:51 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- Generation Time: Apr 28, 2022 at 05:09 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `groceryapp`
 --
-CREATE DATABASE IF NOT EXISTS `groceryapp` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `groceryapp`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +27,6 @@ USE `groceryapp`;
 -- Table structure for table `account`
 --
 
-DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
   `account_id` int(11) NOT NULL,
   `first_name` varchar(32) NOT NULL,
@@ -57,11 +54,21 @@ INSERT INTO `account` (`account_id`, `first_name`, `last_name`, `username`, `pas
 -- Table structure for table `department`
 --
 
-DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
   `dept_id` int(11) NOT NULL,
   `dept_name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`dept_id`, `dept_name`) VALUES
+(1, 'vegetable'),
+(2, 'fruit'),
+(3, 'meat'),
+(4, 'snack'),
+(5, 'drink');
 
 -- --------------------------------------------------------
 
@@ -69,7 +76,6 @@ CREATE TABLE `department` (
 -- Table structure for table `payment`
 --
 
-DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `account_id` int(11) NOT NULL,
   `pay_method` enum('cash','card') NOT NULL
@@ -81,7 +87,6 @@ CREATE TABLE `payment` (
 -- Table structure for table `product`
 --
 
-DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
   `dept_id` int(11) NOT NULL,
@@ -90,13 +95,23 @@ CREATE TABLE `product` (
   `price` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`product_id`, `dept_id`, `name`, `picture_path`, `price`) VALUES
+(1, 1, 'carrot', '', '1'),
+(2, 2, 'apple', '', '1'),
+(3, 3, 'chicken', '', '9'),
+(4, 5, 'coke', '', '3'),
+(5, 4, 'chips', '', '2');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `shopping_cart`
 --
 
-DROP TABLE IF EXISTS `shopping_cart`;
 CREATE TABLE `shopping_cart` (
   `cart_id` int(11) NOT NULL,
   `account_id` int(11) NOT NULL,
@@ -110,7 +125,6 @@ CREATE TABLE `shopping_cart` (
 -- Table structure for table `transaction`
 --
 
-DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
   `transaction_id` int(11) NOT NULL,
   `cart_id` int(11) NOT NULL,
@@ -124,7 +138,6 @@ CREATE TABLE `transaction` (
 -- Table structure for table `transaction_history`
 --
 
-DROP TABLE IF EXISTS `transaction_history`;
 CREATE TABLE `transaction_history` (
   `transaction_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL
@@ -195,13 +208,13 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `shopping_cart`

@@ -4,13 +4,13 @@ namespace App\controllers;
 class ShoppingCartController extends \App\core\Controller{
 
     function index() {
-		$cart = new \App\models\Shopping_Cart();
+		$cart = new \App\models\ShoppingCart();
         $info = $cart->getAllForClient($_SESSION['client_id']);
 		$this->view('cart/cart', ["info" => $info]);
 	}
 
     public function insert() {
-        $cart = new \App\models\Shopping_Cart();
+        $cart = new \App\models\ShoppingCart();
         if (isset($_POST["action"])) {
 			$cart->client_id = $_SESSION["client_id"];
             $cart->product_id = $_SESSION["product_id"];
@@ -24,7 +24,7 @@ class ShoppingCartController extends \App\core\Controller{
     }
 
     function delete($product_id) {
-		$cart = new \App\models\Shopping_Cart();
+		$cart = new \App\models\ShoppingCart();
 		$cart = $cart->get($product_id);
 		$cart->product_id = $product_id;
 		$cart->delete();
