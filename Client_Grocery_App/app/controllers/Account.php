@@ -84,6 +84,6 @@ class Account extends \app\core\Controller
 	public function logout()
 	{
 		session_destroy();
-	//	header('location:' . BASE . 'User/login');
+		header('location:' . BASE . 'Main/index');
 	}
 }

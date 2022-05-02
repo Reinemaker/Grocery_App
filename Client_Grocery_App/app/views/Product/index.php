@@ -2,6 +2,8 @@
 
 <head>
     <title>Product index</title>
+
+    <?php include('C:\xampp\htdocs\Grocery_App\Client_Grocery_App\app\views\Main\navbar.php'); ?>
 </head>
 
 <body>
