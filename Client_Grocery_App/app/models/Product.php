@@ -62,4 +62,10 @@ class Product extends \App\core\Model{
 		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\Product');
 		return $STMT->fetchAll();
 	}
+
+	public function addToCart($product_id,$quantity){
+		$SQL = "INSERT INTO cart(product_id,quantity) VALUES (:product_id,:quantity)";
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['product_id'=>$product_id,'quantity'=>$quantity]);
+	}
 }

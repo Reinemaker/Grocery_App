@@ -53,7 +53,7 @@ class Account extends \app\core\Controller
 				//generate token
 				$jwt = new \app\helpers\JWTHelper();
 				$_SESSION['JWTtoken'] = $jwt->generateJWT($account);
-				$_SESSION['decoded'] = $jwt->decodeJWT($_SESSION['JWTtoken']);
+				$_SESSION['JWTDecoded'] = $jwt->decodeJWT($_SESSION['JWTtoken']);
 				header('location:' . BASE . 'Account/home');
 			} else {
 				$this->view('Main/index', ['error' => 'Wrong username or password!']);

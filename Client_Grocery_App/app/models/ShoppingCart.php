@@ -4,11 +4,9 @@ namespace App\models;
 
 class ShoppingCart extends \App\core\Model{
 
-    public $list_id;
-	public $client_id;
-    public $product_id;
-    public $name;
-    public $type;
+    public $cart_id;
+	public $product_id;
+    public $shopping_cart_id;
 	public $quantity;
 
     public function __construct() {

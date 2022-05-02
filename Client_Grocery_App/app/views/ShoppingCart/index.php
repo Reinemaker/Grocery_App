@@ -2,13 +2,14 @@
 
 <head>
     <title>Shopping Cart index</title>
+    <link rel="stylesheet" href="/Grocery_App/Client_Grocery_App/app/css/style.css">
 </head>
 
-<a href='<?= BASE ."/Main/secure" ?>'>Return to main menu</a>
+<a href='<?= BASE . "/Main/secure" ?>'>Return to main menu</a>
 
 <body>
     <span id="demo"> </span>
-    <script>
+    <!-- <script>
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -24,19 +25,75 @@
             true
         );
         xhttp.send();
-    </script>
+    </script> -->
 
-<?php 
-            if (isset($data['carts'])) {
-                foreach ($data['carts'] as $cart) {
-                    echo "<h2>$product->name</h2>";
-                    echo "<p>$product->type $</p>";
-                    echo "<p>$product->quantity $</p>";
-                    //picture 
-                    echo "<img src='$product->picture_path' alt='$product->name' width='200' height='200'>";
+    <?php if (isset($data['cart_items'])) : ?>
+        <?php foreach ($data['cart_items'] as $cart_item) : ?>
+            <?= var_dump($cart_item) ?>
+            <div>
+                <h1><?= $cart_item["product"]->name ?> </h1>
+                <h3 id="total-<?=$cart_item['product']->product_id ?>"><?= $cart_item["product"]->price * $cart_item["quantity"] ?>$</h3>
+                <img src="<?= $cart_item["product"]->picture_path ?>" alt="">
+            </div>
+
+            <div>
+                <button onclick="buttonAdd(<?= $cart_item['product']->product_id ?>)">+</button>
+                <span id="number-<?= $cart_item['product']->product_id ?>"><?= $cart_item["quantity"] ?></span>
+                <button onclick="buttonSubtract(<?= $cart_item['product']->product_id ?>)">-</button>
+                <button id="addToCart-<?= $cart_item['product']->product_id ?>" style="display: none" onclick="addToCart(<?= $cart_item['product']->product_id ?>)">Update Cart</button>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <div id="snackbar"></div>
+
+    <script>
+        function addToCart(product_id) {
+            var number = document.getElementById(`number-${product_id}`);
+            var url = "<?= BASE ?>/Product/addToCart";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById(`addToCart-${product_id}`).style.display = "none";
+                    showToast("Cart has been updated");
                 }
-            }
-        ?>
+            };
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("product_id=" + product_id + "&quantity=" + number.textContent);
+        }
 
+        function buttonAdd(product_id) {
+            var number = document.getElementById(`number-${product_id}`);
+            var number_value = parseInt(number.textContent);
+            document.getElementById(`addToCart-${product_id}`).style.display = "block";
+            number.innerHTML = number_value + 1;
+        }
+
+        function buttonSubtract(product_id) {
+            var number = document.getElementById(`number-${product_id}`);
+            var number_value = parseInt(number.textContent);
+            if (number_value == 0) {
+                return;
+            }
+            number.innerHTML = number_value - 1;
+            if (number_value - 1 == 0) {
+                document.getElementById(`addToCart-${product_id}`).style.display = "none";
+            }
+        }
+
+        function showToast(message) {
+            var x = document.getElementById("snackbar");
+
+            x.className = "show";
+            x.textContent = message;
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function() {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+    </script>
 </body>
+
 </html>
