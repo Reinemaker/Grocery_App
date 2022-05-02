@@ -54,4 +54,12 @@ class Product extends \App\core\Model{
 		$STMT = self::$_connection->prepare($SQL);
 		$STMT->execute(['product_id'=>$this->product_id]);
 	}
+
+	public function sortSearch($search_word){
+		$SQL = "SELECT * FROM product WHERE name LIKE :search_word ORDER BY name";
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['search_word'=>'%'.$search_word.'%']);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\Product');
+		return $STMT->fetchAll();
+	}
 }

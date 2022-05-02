@@ -60,6 +60,19 @@ class Product extends \app\core\Controller
 	{
 		$product = new \App\models\Product();
 		$search_results = $product->search($_GET['searchValue']);
-		$this->view('Product/searchResults', ['search_results' => $search_results]);
+		$this->view('Product/searchResults', ['search_results' => $search_results, 'search_word' => $_GET['searchValue']]);
+	}
+
+	public function sortSearch($search_word){
+		$product = new \App\models\Product();
+		$sorted_search_results = $product->sortSearch($search_word);
+		$this->view('Product/searchResults', ['search_results' => $sorted_search_results]);
+	}
+
+	public function productDetails($product_id){
+		$product = new \App\models\Product();
+		$product = $product->get($product_id);
+		$this->view('Product/productDetails', ['product' => $product]);
+
 	}
 }
