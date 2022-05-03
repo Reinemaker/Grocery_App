@@ -3,6 +3,7 @@
 <head>
     <title>Product Details</title>
     <link rel="stylesheet" href="/Grocery_App/Client_Grocery_App/app/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
@@ -19,13 +20,14 @@
 
     </div>
 
+
     <div id="snackbar"></div>
 
     <script>
         function addToCart() {
             var number = document.getElementById("number").innerHTML;
             var product_id = <?= $data['product']->product_id ?>;
-            var url = "<?= BASE ?>/Product/addToCart";
+            var url = "<?= BASE ?>/ShoppingCart/addToCart";
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -68,6 +70,19 @@
             setTimeout(function() {
                 x.className = x.className.replace("show", "");
             }, 3000);
+        }
+
+        function pay() {
+            var url = "http://localhost/Grocery_App/Grocery_App/app/api/PaymentProcessing/";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    showToast("Product added to cart");
+                }
+            };
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send($_POST);
         }
     </script>
 </body>

@@ -3,6 +3,8 @@
 <head>
     <title>Shopping Cart index</title>
     <link rel="stylesheet" href="/Grocery_App/Client_Grocery_App/app/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 
 <a href='<?= BASE . "/Main/secure" ?>'>Return to main menu</a>
@@ -26,25 +28,95 @@
         );
         xhttp.send();
     </script> -->
+    <div class="d-flex container" style="justify-content: space-between">
+        <?php if (isset($data['cart_items'])) : ?>
+            <div class="d-flex" style="flex-direction:column" style="width: 60%">
+                <?php foreach ($data['cart_items'] as $cart_item) : ?>
+                    <div class="d-flex" style="flex-direction:column">
+                        <h1><?= $cart_item["product"]->name ?> </h1>
+                        <h3 style="margin-left: 10px" id="total-<?= $cart_item['product']->product_id ?>"><?= $cart_item["product"]->price * $cart_item["quantity"] ?>$</h3>
+                        <img style="width: 250px; height: 250px; margin-left: 10px" src="<?= $cart_item["product"]->picture_path ?>" alt="">
+                    </div>
 
-    <?php if (isset($data['cart_items'])) : ?>
-        <?php foreach ($data['cart_items'] as $cart_item) : ?>
-            <?= var_dump($cart_item) ?>
-            <div>
-                <h1><?= $cart_item["product"]->name ?> </h1>
-                <h3 id="total-<?=$cart_item['product']->product_id ?>"><?= $cart_item["product"]->price * $cart_item["quantity"] ?>$</h3>
-                <img src="<?= $cart_item["product"]->picture_path ?>" alt="">
+                    <div class="d-flex">
+                        <button onclick="buttonAdd(<?= $cart_item['product']->product_id ?>)">+</button>
+                        <span id="number-<?= $cart_item['product']->product_id ?>"><?= $cart_item["quantity"] ?></span>
+                        <button onclick="buttonSubtract(<?= $cart_item['product']->product_id ?>)">-</button>
+                        <button id="addToCart-<?= $cart_item['product']->product_id ?>" style="display: none" onclick="addToCart(<?= $cart_item['product']->product_id ?>)">Update Cart</button>
+                    </div>
+                <?php endforeach; ?>
             </div>
+        <?php endif; ?>
+        <div class="d-flex" style="flex-direction:column; width: 25%">
 
-            <div>
-                <button onclick="buttonAdd(<?= $cart_item['product']->product_id ?>)">+</button>
-                <span id="number-<?= $cart_item['product']->product_id ?>"><?= $cart_item["quantity"] ?></span>
-                <button onclick="buttonSubtract(<?= $cart_item['product']->product_id ?>)">-</button>
-                <button id="addToCart-<?= $cart_item['product']->product_id ?>" style="display: none" onclick="addToCart(<?= $cart_item['product']->product_id ?>)">Update Cart</button>
+            <div class="box-2">
+                <div class="box-inner-2">
+                    <div>
+                        <p class="fw-bold">Payment Details</p>
+                        <p class="dis mb-3">Complete your purchase by providing your payment details</p>
+                    </div>
+                    <form action="">
+                        <div class="mb-3">
+                            <p class="dis fw-bold mb-2">Email address</p>
+                            <input class="form-control" type="email" value="luke@skywalker.com">
+                        </div>
+                        <div>
+                            <p class="dis fw-bold mb-2">Card details</p>
+                            <div class="d-flex align-items-center justify-content-between card-atm border rounded">
+                                <div class="fab fa-cc-visa ps-3"></div>
+                                <input type="text" class="form-control" placeholder="Card Details">
+                                <div class="d-flex w-50">
+                                    <input type="text" class="form-control px-0" placeholder="MM/YY">
+                                    <input type="password" maxlength=3 class="form-control px-0" placeholder="CVV">
+                                </div>
+                            </div>
+                            <div class="my-3 cardname">
+                                <p class="dis fw-bold mb-2">Cardholder name</p>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="address">
+                                <p class="dis fw-bold mb-3">Billing address</p>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected hidden>United States</option>
+                                    <option value="1">India</option>
+                                    <option value="2">Australia</option>
+                                    <option value="3">Canada</option>
+                                </select>
+                                <div class="d-flex">
+                                    <input class="form-control zip" type="text" placeholder="ZIP">
+                                    <input class="form-control state" type="text" placeholder="State">
+                                </div>
+                                <div class=" my-3">
+                                    <p class="dis fw-bold mb-2">VAT Number</p>
+                                    <div class="inputWithcheck">
+                                        <input class="form-control" type="text" value="GB012345B9">
+                                        <span class="fas fa-check"></span>
+
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column dis">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <p>Subtotal</p>
+                                        <p><span class="fas fa-dollar-sign"></span>33.00</p>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <p>VAT<span>(20%)</span></p>
+                                        <p><span class="fas fa-dollar-sign"></span>2.80</p>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <p class="fw-bold">Total</p>
+                                        <p class="fw-bold"><span class="fas fa-dollar-sign"></span>35.80</p>
+                                    </div>
+                                    <div class="btn btn-primary mt-2">Pay<span class="fas fa-dollar-sign px-1"></span>35.80
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
-
+        </div>
+    </div>
     <div id="snackbar"></div>
 
     <script>

@@ -30,8 +30,12 @@
 	
 			}
 
-            if (($this->Request->method == "POST" || $this->Request->method == "PUT") && $this->Request->header['Content-Type'] == "application/json") {
-                $this->Request->payload = json_decode(file_get_contents('php://input'), true);
+            if (($this->Request->method == "POST" || $this->Request->method == "PUT")) {
+				if ($this->Request->header['Content-Type'] == "application/json") {
+					$this->Request->payload = json_decode(file_get_contents('php://input'), true);
+				} else if($this->Request->header['Content-Type'] == "application/x-www-form-urlencoded") {
+					$this->Request->payload = $_POST;
+				}
             } 
 
 			return $this->Request;

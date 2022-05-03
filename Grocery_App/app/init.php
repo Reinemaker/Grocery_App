@@ -12,3 +12,4 @@ $path = preg_replace('/\/+/', '/', $path);
 
 define('BASE', $path);
 
+require_once "vendor/autoload.php";

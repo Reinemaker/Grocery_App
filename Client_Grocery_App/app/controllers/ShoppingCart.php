@@ -1,35 +1,39 @@
 <?php
+
 namespace App\controllers;
 
-class ShoppingCartController extends \App\core\Controller{
-
-    function index() {
-		$cart = new \App\models\ShoppingCart();
-        $info = $cart->getAllForClient($_SESSION['client_id']);
-		$this->view('cart/cart', ["info" => $info]);
-	}
-
-    public function insert() {
-        $cart = new \App\models\ShoppingCart();
-        if (isset($_POST["action"])) {
-			$cart->client_id = $_SESSION["client_id"];
-            $cart->product_id = $_SESSION["product_id"];
-            $cart->name = $_POST["name"];
-            $cart->type = $_POST["type"];
-            $cart->quantity = $_POST["quantity"];
-            $cart->insert();
-			header('location:'.BASE.'/Product/productList');
-        } else 
-            $this->view("cart/insert", $cart);
+class ShoppingCart extends \App\core\Controller
+{
+    public function index()
+    {
+        $cart = new \App\models\Cart();
+        $account_id = json_decode($_SESSION['JWTDecoded']["account"])->account_id;
+        $cart = $cart->get($account_id);
+        $cart_items = $cart->getCartItems();
+        $this->view("Payment/index");
     }
 
-    function delete($product_id) {
-		$cart = new \App\models\ShoppingCart();
-		$cart = $cart->get($product_id);
-		$cart->product_id = $product_id;
-		$cart->delete();
-		header('location:'.BASE.'/cart/cart/');
-	}
+    public function addToCart()
+    {
+        $cart = new \App\models\Cart();
+        $account_id = json_decode($_SESSION['JWTDecoded']["account"])->account_id;
+        $cart = $cart->get($account_id);
+        $cart->addToCart($_POST["product_id"], $_POST["quantity"]);
+    }
 
+    public function viewCart()
+    {
+        $cart = new \App\models\Cart();
+        $account_id = json_decode($_SESSION['JWTDecoded']["account"])->account_id;
+        $cart = $cart->get($account_id);
+        $cart_items = $cart->getCartItems();
+        $products = [];
+        foreach ($cart_items as $cart_item) {
+            $product = new \App\models\Product();
+            $product = $product->get($cart_item->product_id);
+            $products[] = ["product" => $product, "quantity" => $cart_item->quantity];
+        }
+        $this->view('ShoppingCart/index', ['cart_items' => $products]);
+    }
 }
 //WIP
