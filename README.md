@@ -1,4 +1,4 @@
-# GroceryApp
+# Grocery App
 
 ## Winter 2022 Web Service
 ## Project by Minjae Lee, Natalie Mulodjanov and Jonathan Euzebe

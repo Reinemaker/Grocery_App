@@ -7,7 +7,7 @@
 
 </head>
 
-<a href='<?= BASE . "/Main/secure" ?>'>Return to main menu</a>
+<?php include('C:\xampp\htdocs\Grocery_App\Client_Grocery_App\app\views\Main\navbar.php'); ?>
 
 <body>
     <span id="demo"> </span>
