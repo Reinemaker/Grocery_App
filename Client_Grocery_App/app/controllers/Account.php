@@ -64,6 +64,7 @@ class Account extends \app\core\Controller
 
 	function updateAccount()//doesn't serialize password
 	{
+		echo "update";
 		$account = new \App\models\Account();
 		if (isset($_POST["action"])) {
 			if ($_POST['password'] == $_POST['password_confirm']) {
@@ -78,7 +79,7 @@ class Account extends \app\core\Controller
 				$this->view('Main/update', ['error' => 'Password does not match!']);
 			}
 		}
-		$this->view("Main/home");
+		$this->view('Main/home');
 	}
 
 	public function logout()
