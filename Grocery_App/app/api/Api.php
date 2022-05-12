@@ -20,14 +20,15 @@ class Api
         if ($this->request == null) {
             echo "error, url improperly formatted";
             return;
-        }  
-        $attribute = new \app\attributes\AuthorizeAttribute();
-        if ($attribute->execute() == false) {
-            throw new \Exception("User unauthorized");
         }
+        if ($this->request->header)  
+        // $attribute = new \app\attributes\AuthorizeAttribute();
+        // if ($attribute->execute() == false) {
+        //     throw new \Exception("User unauthorized");
+        // }
         
         $keys = array_keys($this->request->urlParams);
-        $file_name = $keys[0] . 'Controller';
+        $file_name = $keys[0];
         if (file_exists(dirname(__DIR__) . '/controllers/' . $file_name . '.php')) {
             $classname = 'app\controllers\\'.$file_name;
             $file_exists = class_exists($classname);
