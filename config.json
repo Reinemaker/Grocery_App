@@ -1,4 +1,7 @@
 {
-    "ConnectionString" : "",
-    "LogLevel": ""
+    "DbConnectionString" : "",
+    "Logger": {
+        "Level": "WARN",
+        "FilePath": "C:\\xampp\\htdocs\\Grocery_App\\log.txt"
+    }
 }

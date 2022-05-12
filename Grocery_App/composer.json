@@ -2,6 +2,10 @@
     "require": {
         "league/omnipay": "3",
         "omnipay/paypal": "^3.0",
-        "omnipay/dummy": "^3.0"
+        "omnipay/dummy": "^3.0",
+        "monolog/monolog": "^2.5",
+        "firebase/php-jwt": "^6.1",
+        "zircote/swagger-php": "^3.3",
+        "konekt/pdf-invoice": "1.7"
     }
 }

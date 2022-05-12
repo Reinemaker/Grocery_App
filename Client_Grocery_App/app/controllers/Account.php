@@ -62,6 +62,7 @@ class Account extends \app\core\Controller
 			$this->view('Main/index');
 	}
 
+	#[\app\filters\ValidateToken]
 	function updateAccount()//doesn't serialize password
 	{
 		echo "update";

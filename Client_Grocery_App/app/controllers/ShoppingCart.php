@@ -2,6 +2,7 @@
 
 namespace App\controllers;
 
+#[\app\filters\ValidateToken]
 class ShoppingCart extends \App\core\Controller
 {
     public function index()
