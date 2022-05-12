@@ -42,7 +42,7 @@ class Account extends \app\core\Model
 
     public function update()
 	{
-		$SQL = "UPDATE 'account' SET first_name=:first_name, last_name=:last_name, address=:address, password_hash = :password_hash WHERE account_id = :account_id";
+		$SQL = "UPDATE account SET first_name=:first_name, last_name=:last_name, address=:address, password_hash = :password_hash WHERE username = :username";
 		$STMT = self::$_connection->prepare($SQL);
 		$STMT->execute(['first_name' => $this->first_name, 'last_name' => $this->last_name, 'address' => $this->address, 'password_hash' => $this->password_hash]);
 	}

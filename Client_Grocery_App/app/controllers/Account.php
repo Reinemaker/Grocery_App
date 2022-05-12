@@ -66,6 +66,8 @@ class Account extends \app\core\Controller
 	{
 		echo "update";
 		$account = new \App\models\Account();
+		//$account = $account->get($username);
+		//$account->username = $username;
 
 		//This is a temporary
 		$this->view('Main/update');
