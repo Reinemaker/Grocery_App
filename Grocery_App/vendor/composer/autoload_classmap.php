@@ -7,4 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+<<<<<<< Updated upstream
+=======
+    'FPDF' => $vendorDir . '/setasign/fpdf/fpdf.php',
+    'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+    'Omnipay\\Omnipay' => $vendorDir . '/omnipay/common/src/Omnipay.php',
+>>>>>>> Stashed changes
 );
