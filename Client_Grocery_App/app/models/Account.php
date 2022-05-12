@@ -42,9 +42,8 @@ class Account extends \app\core\Model
 
     public function update()
 	{
-        $this->password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-		$SQL = "UPDATE client SET first_name=:first_name, last_name=:last_name, password_hash = :password_hash, address=:address WHERE account_id = :account_id";
+		$SQL = "UPDATE 'account' SET first_name=:first_name, last_name=:last_name, address=:address, password_hash = :password_hash WHERE account_id = :account_id";
 		$STMT = self::$_connection->prepare($SQL);
-		$STMT->execute(['client_id' => $this->client_id, 'password_hash' => $this->password_hash]);
+		$STMT->execute(['first_name' => $this->first_name, 'last_name' => $this->last_name, 'address' => $this->address, 'password_hash' => $this->password_hash]);
 	}
 }
