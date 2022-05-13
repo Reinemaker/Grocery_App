@@ -5,7 +5,9 @@
 
 .display-flex {
     display: flex;
+/*background-color: yellow;*/
 }
+
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar  {

@@ -20,9 +20,6 @@ class ConnectionManager {
     }
 
     public function getConnection() {
-        $config = new \app\ConfigurationHelper();
-        $config = $config->getConfigurations();
-        // return new \PDO($config['ConnectionString'], $this->user, $this->password);
         return new \PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->password);
     }
 }

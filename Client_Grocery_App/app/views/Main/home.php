@@ -18,7 +18,7 @@
       width: auto;
   }
   body{
-
+    background-image: url("../pictures/bgWallpaper.png");
   }
   .container {
   display: grid;

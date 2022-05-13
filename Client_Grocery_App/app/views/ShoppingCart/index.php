@@ -11,6 +11,23 @@
 
 <body>
     <span id="demo"> </span>
+    <!-- <script>
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // Typical action to be performed when the document is ready:
+                document.getElementById("demo").innerHTML = xhttp.responseText;
+            }
+        };
+        var url ="http://localhost/Assignment1_Web_Services_Natalie_Mulodjanov/Assignment1_WebServices/app/api/Client/<?php echo isset($data['id']) ? $data['id'] : '' ?>"
+
+        xhttp.open(
+            "GET",
+            url,
+            true
+        );
+        xhttp.send();
+    </script> -->
     <div class="d-flex container" style="justify-content: space-between">
         <?php if (isset($data['cart_items'])) : ?>
             <div class="d-flex" style="flex-direction:column" style="width: 60%">
@@ -41,21 +58,21 @@
                     <form action="">
                         <div class="mb-3">
                             <p class="dis fw-bold mb-2">Email address</p>
-                            <input id="email" class="form-control" type="email" value="luke@skywalker.com">
+                            <input class="form-control" type="email" value="luke@skywalker.com">
                         </div>
                         <div>
                             <p class="dis fw-bold mb-2">Card details</p>
                             <div class="d-flex align-items-center justify-content-between card-atm border rounded">
                                 <div class="fab fa-cc-visa ps-3"></div>
-                                <input id="ccNumber" type="text" class="form-control" placeholder="Card Number">
+                                <input type="text" class="form-control" placeholder="Card Details">
                                 <div class="d-flex w-50">
-                                    <input id="ccExp" type="text" class="form-control px-0" placeholder="MM/YY">
-                                    <input id="ccCvv" type="password" maxlength=3 class="form-control px-0" placeholder="CVV">
+                                    <input type="text" class="form-control px-0" placeholder="MM/YY">
+                                    <input type="password" maxlength=3 class="form-control px-0" placeholder="CVV">
                                 </div>
                             </div>
                             <div class="my-3 cardname">
                                 <p class="dis fw-bold mb-2">Cardholder name</p>
-                                <input id="ccFullName" class="form-control" type="text">
+                                <input class="form-control" type="text">
                             </div>
                             <div class="address">
                                 <p class="dis fw-bold mb-3">Billing address</p>
@@ -68,6 +85,14 @@
                                 <div class="d-flex">
                                     <input class="form-control zip" type="text" placeholder="ZIP">
                                     <input class="form-control state" type="text" placeholder="State">
+                                </div>
+                                <div class=" my-3">
+                                    <p class="dis fw-bold mb-2">VAT Number</p>
+                                    <div class="inputWithcheck">
+                                        <input class="form-control" type="text" value="GB012345B9">
+                                        <span class="fas fa-check"></span>
+
+                                    </div>
                                 </div>
                                 <div class="d-flex flex-column dis">
                                     <div class="d-flex align-items-center justify-content-between mb-2">
@@ -82,7 +107,7 @@
                                         <p class="fw-bold">Total</p>
                                         <p class="fw-bold"><span class="fas fa-dollar-sign"></span>35.80</p>
                                     </div>
-                                    <div onclick="formOnSubmit()" class="btn btn-primary mt-2">Pay<span class="fas fa-dollar-sign px-1"></span>35.80
+                                    <div class="btn btn-primary mt-2">Pay<span class="fas fa-dollar-sign px-1"></span>35.80
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +117,6 @@
             </div>
         </div>
     </div>
-    <embed src="http://localhost/Grocery_App/Grocery_App/app/api/PaymentProcessing/" type="application/pdf">
     <div id="snackbar"></div>
 
     <script>
@@ -108,7 +132,6 @@
             };
             xhttp.open("POST", url, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.setRequestHeader("Authorization", <?= $_SESSION["JWTtoken"] ?>);
             xhttp.send("product_id=" + product_id + "&quantity=" + number.textContent);
         }
 
@@ -141,38 +164,6 @@
             setTimeout(function() {
                 x.className = x.className.replace("show", "");
             }, 3000);
-        }
-
-        function formOnSubmit() {
-            var email = document.getElementById("email").value;
-            var ccNumber = document.getElementById("ccNumber").value;
-            var ccExp = document.getElementById("ccExp").value;
-            var ccCvv = document.getElementById("ccCvv").value;
-            var ccFullName = document.getElementById("ccFullName").value;
-            // var zip = document.getElementById("zip").value;
-            // var state = document.getElementById("state").value;
-            var url = "http://localhost/Grocery_App/Grocery_App/app/api/PaymentProcessing/";
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4) {
-                    if (this.status == 200) {
-                        console.log(this.response);
-                    } else if (this.status == 400) {
-                        showToast(this.responseText);
-                    }
-                }
-            };
-            var payload = {
-                email: email,
-                ccNumber: ccNumber,
-                ccMonth: ccExp.split("/")[0],
-                ccYear: ccExp.split("/")[1],
-                ccCvv: ccCvv,
-                ccFullName: ccFullName
-            };
-            xhttp.open("GET", url, true);
-            xhttp.setRequestHeader("Authorization", "<?= $_SESSION["JWTtoken"] ?>");
-            xhttp.send();
         }
     </script>
 </body>
