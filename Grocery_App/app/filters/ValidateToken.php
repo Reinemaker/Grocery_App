@@ -8,6 +8,8 @@ use \Firebase\JWT\ExpiredException;
 class ValidateToken	{
 	function execute(){
         $request_headers = apache_request_headers();
+		$logger = new \app\LoggerHelper();
+		$logger = $logger->getLogger();
 		if (isset($request_headers['Authorization'])) {
 			try {
 				$jwt = new \app\helpers\JWTHelper();
@@ -18,17 +20,21 @@ class ValidateToken	{
 						return false;
 					}
 				} 
+				
                 echo "Jwt token is invalid. Please log-in again.";
+				$logger->error("Jwt token is invalid. Please log-in again.");
                 http_response_code(401);
 				return true;
 			} catch (ExpiredException $e) {
 				session_destroy();
                 echo "Jwt token is invalid. Please log-in again.";
+				$logger->error("Jwt token has expired. Please log-in again.");
                 http_response_code(401);
 				return true;
 			}
 		}
         echo "Jwt token is invalid. Please log-in again.";
+		$logger->error("Jwt token is invalid. Please log-in again.");
         http_response_code(401);
 		return true;
 	}

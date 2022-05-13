@@ -92,7 +92,6 @@
             </div>
         </div>
     </div>
-    <embed src="http://localhost/Grocery_App/Grocery_App/app/api/PaymentProcessing/" type="application/pdf">
     <div id="snackbar"></div>
 
     <script>
@@ -108,7 +107,7 @@
             };
             xhttp.open("POST", url, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.setRequestHeader("Authorization", <?= $_SESSION["JWTtoken"] ?>);
+            xhttp.setRequestHeader("Authorization", "<?=$_SESSION["JWTtoken"] ?>");
             xhttp.send("product_id=" + product_id + "&quantity=" + number.textContent);
         }
 
@@ -156,23 +155,17 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4) {
                     if (this.status == 200) {
-                        console.log(this.response);
+                        showToast("Payment Successful");
                     } else if (this.status == 400) {
                         showToast(this.responseText);
                     }
                 }
             };
-            var payload = {
-                email: email,
-                ccNumber: ccNumber,
-                ccMonth: ccExp.split("/")[0],
-                ccYear: ccExp.split("/")[1],
-                ccCvv: ccCvv,
-                ccFullName: ccFullName
-            };
-            xhttp.open("GET", url, true);
-            xhttp.setRequestHeader("Authorization", "<?= $_SESSION["JWTtoken"] ?>");
-            xhttp.send();
+            var payload = { cartItems: <?= json_encode($data["cart_items"]) ?>, total: "100", cartId: <?= $data['cart_id'] ?>, email: email, ccNumber: ccNumber, ccMonth: ccExp.split("/")[0], ccYear: ccExp.split("/")[1], ccCvv: ccCvv, ccFullName: ccFullName };
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.setRequestHeader("Authorization", "<?=$_SESSION["JWTtoken"] ?>");
+            xhttp.send(JSON.stringify(payload));
         }
     </script>
 </body>

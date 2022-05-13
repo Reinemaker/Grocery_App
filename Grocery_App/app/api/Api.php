@@ -19,7 +19,7 @@ class Api
     {
         $logger = new \app\LoggerHelper();
         $logger = $logger->getLogger();
-        $logger->debug("Test log");
+        $logger->debug("Api request has been made.");
         $Requestbuilder = new http\Requestbuilder();
         $this->request = $Requestbuilder->getRequest();
         if ($this->request == null) {
