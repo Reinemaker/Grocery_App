@@ -12,6 +12,14 @@ class Cart extends \app\core\Model
         parent::__construct();
     }
 
+    public function getFromCartId($cart_id) {
+        $SQL = "SELECT * FROM cart WHERE cart_id = :cart_id";
+        $STMT = self::$_connection->prepare($SQL);
+        $STMT->execute(['cart_id' => $cart_id]);
+        $STMT->setFetchMode(\PDO::FETCH_CLASS, 'app\models\Cart');
+        return $STMT->fetch();
+    }
+
     public function get($account_id) {
         $SQL = "SELECT * FROM cart WHERE account_id = :account_id";
         $STMT = self::$_connection->prepare($SQL);

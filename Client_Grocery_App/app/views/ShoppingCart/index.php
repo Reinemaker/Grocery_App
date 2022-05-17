@@ -132,6 +132,7 @@
             };
             xhttp.open("POST", url, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.setRequestHeader("Authorization", "<?=$_SESSION["JWTtoken"] ?>");
             xhttp.send("product_id=" + product_id + "&quantity=" + number.textContent);
         }
 
@@ -164,6 +165,32 @@
             setTimeout(function() {
                 x.className = x.className.replace("show", "");
             }, 3000);
+        }
+
+        function formOnSubmit() {
+            var email = document.getElementById("email").value;
+            var ccNumber = document.getElementById("ccNumber").value;
+            var ccExp = document.getElementById("ccExp").value;
+            var ccCvv = document.getElementById("ccCvv").value;
+            var ccFullName = document.getElementById("ccFullName").value;
+            // var zip = document.getElementById("zip").value;
+            // var state = document.getElementById("state").value;
+            var url = "http://localhost/Grocery_App/Grocery_App/app/api/PaymentProcessing/";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        showToast("Payment Successful");
+                    } else if (this.status == 400) {
+                        showToast(this.responseText);
+                    }
+                }
+            };
+            var payload = { cartItems: <?= json_encode($data["cart_items"]) ?>, total: "100", cartId: <?= $data['cart_id'] ?>, email: email, ccNumber: ccNumber, ccMonth: ccExp.split("/")[0], ccYear: ccExp.split("/")[1], ccCvv: ccCvv, ccFullName: ccFullName };
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.setRequestHeader("Authorization", "<?=$_SESSION["JWTtoken"] ?>");
+            xhttp.send(JSON.stringify(payload));
         }
     </script>
 </body>

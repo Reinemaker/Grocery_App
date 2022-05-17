@@ -7,6 +7,7 @@
 </head>
 
 <body>
+<?php include('C:\xampp\htdocs\Grocery_App\Client_Grocery_App\app\views\Main\navbar.php'); ?>
     <div>
         <h1><?= $data['product']->name ?> </h1>
         <img src="<?= $data['product']->picture_path ?>" alt="">
